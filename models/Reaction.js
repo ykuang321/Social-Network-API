@@ -1,24 +1,26 @@
 const { Schema, Types } = require('mongoose');
+const moment = require('moment');
 
 //SCHEMA ONLY
 const reactionSchema = new Schema(
   {
     reactionId: {
-
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
     },
     reactionBody: {
       type: String,
       required: true,
       maxlength: 280,
     },
-    username: {
+    userName: {
       type: String,
       required: true,
     },
-    createAt: {
+    createdAt: {
       type: Date,
       default: Date.now,
-      //TODO: Use a getter method to format the timestamp on query
+      get: date => moment(date).format('MMMM Do YYYY, h:mm:ss a'),
     },
   },
   {
